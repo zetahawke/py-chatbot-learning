@@ -1,3 +1,6 @@
+#!/usr/bin/python
+
+import sys
 # from chatterbot import ChatBot
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
@@ -20,46 +23,57 @@ bot = ChatBot(
   database = './chatterbot-database'
 )
 
+
+try:
+  text = sys.argv[1]
+  input_statement = Statement(text=text)
+  response = bot.generate_response(input_statement)
+  print(response)
+
+except (KeyboardInterrupt, EOFError, SystemExit):
+  print("Sorry, I can't help you with that.")
+
+
 # CONVERSATION_ID = bot.storage.create('wilhem_dy_')
 
-def get_feedback():
-  text = input()
+# def get_feedback():
+#   text = input()
 
-  if 'y' in text.lower():
-    return True
-  elif 'n' in text.lower():
-    return False
-  else:
-    print("Assuming no... D:")
-    return False
+#   if 'y' in text.lower():
+#     return True
+#   elif 'n' in text.lower():
+#     return False
+#   else:
+#     print("Assuming no... D:")
+#     return False
 
-# Create a new trainer for the chatbot
-trainer = ChatterBotCorpusTrainer(bot)
-# Train the chatbot based on the english corpus
-trainer.train("chatterbot.corpus.english")
-print("Read only bot = ", bot.read_only)
+# # Create a new trainer for the chatbot
+# trainer = ChatterBotCorpusTrainer(bot)
+# # Train the chatbot based on the english corpus
+# trainer.train("chatterbot.corpus.english")
+# print("Read only bot = ", bot.read_only)
 
-print('You can always press ctrl + c for exit.')
-print("Type something to beign")
+# print('You can always press ctrl + c for exit.')
+# print("Type something to beign")
 
-while True:
-  try:
-    input_statement = Statement(text=input())
-    response = bot.generate_response(
-        input_statement
-    )
-    print('\n Is "{}" a coherent response to "{}"? \n'.format(
-        response.text,
-        input_statement.text
-    ))
-    if get_feedback() is False:
-      print('I would like that you teach me the right answer!')
-      correct_response = Statement(text=input())
-      bot.learn_response(correct_response, input_statement)
-      response = correct_response
-      print('Thanks! I will renember that.')
+# while True:
+#   try:
+#     input_statement = Statement(text=input())
+#     response = bot.generate_response(
+#         input_statement
+#     )
+#     print('\n Is "{}" a coherent response to "{}"? \n'.format(
+#         response.text,
+#         input_statement.text
+#     ))
+#     if get_feedback() is False:
+#       print('I would like that you teach me the right answer!')
+#       correct_response = Statement(text=input())
+#       bot.learn_response(correct_response, input_statement)
+#       response = correct_response
+#       print('Thanks! I will renember that.')
     
-    print(response)
+#     print(response)
 
-  except (KeyboardInterrupt, EOFError, SystemExit):
-    break
+#   except (KeyboardInterrupt, EOFError, SystemExit):
+#     break

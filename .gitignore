@@ -1,0 +1,4 @@
+.ruby-version
+env/
+sentence_tokenizer.pickle
+db.sqlite3
