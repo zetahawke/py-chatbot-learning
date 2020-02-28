@@ -22,16 +22,20 @@ bot = ChatBot(
   ],
   database = './chatterbot-database'
 )
+# Create a new trainer for the chatbot
+trainer = ChatterBotCorpusTrainer(bot)
+# Train the chatbot based on the english corpus
+trainer.train("chatterbot.corpus.english")
+print("Read only bot = ", bot.read_only)
 
-
-try:
-  text = sys.argv[1]
-  input_statement = Statement(text=text)
-  response = bot.generate_response(input_statement)
-  print(response)
-
-except (KeyboardInterrupt, EOFError, SystemExit):
-  print("Sorry, I can't help you with that.")
+text = sys.argv[1]
+input_statement = Statement(text=text)
+response = bot.generate_response(input_statement)
+print(response)
+# try:
+#   print("asd")
+# except (KeyboardInterrupt, EOFError, SystemExit):
+#   print("Sorry, I can't help you with that.")
 
 
 # CONVERSATION_ID = bot.storage.create('wilhem_dy_')
